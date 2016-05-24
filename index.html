@@ -17,26 +17,47 @@
 			////////源生写法：/////////
 			var spans = document.getElementsByTagName("span");
 			var lockNum = -1;
-			for (var i = 0; i < spans.length; i++) {
+//			for (var i = 0; i < spans.length; i++) {
+//				spans[i].index = i;
+//				spans[i].onmouseover = function(){
+//					for (var i = 0; i < spans.length; i++) {
+//						spans[i].style.color = '';
+//					}
+//					for (var i = 0; i < this.index+1; i++) {
+//						spans[i].style.color = this.index+1>2?'red':'blue';
+//					}
+//				}
+//				spans[i].onclick = function(){
+//					lockNum = this.index;
+//				}
+//				spans[i].onmouseout = function(){
+//					for (var i = 0; i < spans.length; i++) {
+//						spans[i].style.color = '';
+//					}
+//					for (var i = 0; i < lockNum+1; i++) {
+//						spans[i].style.color = lockNum+1>2?'red':'blue';
+//					}
+//				}
+//			}
+			////////封装函数///////
+			function fn(last){
+				for (var i = 0; i < spans.length; i++) {
+					spans[i].style.color = '';
+				}
+				for (var i = 0; i < last; i++) {
+					spans[i].style.color = last>2?'red':'blue';
+				}
+			}
+			for(var i=0;i<spans.length;i++){
 				spans[i].index = i;
 				spans[i].onmouseover = function(){
-					for (var i = 0; i < spans.length; i++) {
-						spans[i].style.color = '';
-					}
-					for (var i = 0; i < this.index+1; i++) {
-						spans[i].style.color = this.index+1>2?'red':'blue';
-					}
+					fn(this.index+1)
 				}
 				spans[i].onclick = function(){
 					lockNum = this.index;
 				}
 				spans[i].onmouseout = function(){
-					for (var i = 0; i < spans.length; i++) {
-						spans[i].style.color = '';
-					}
-					for (var i = 0; i < lockNum+1; i++) {
-						spans[i].style.color = lockNum+1>2?'red':'blue';
-					}
+					fn(lockNum+1);
 				}
 			}
 		</script>
