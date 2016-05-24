@@ -13,6 +13,7 @@
 		<span>☆</span>
 		<span>☆</span>
 		<span>☆</span>
+		<script type="text/javascript" src="js/jquery-2.2.2.min.js" ></script>
 		<script type="text/javascript">
 			////////源生写法：/////////
 			var spans = document.getElementsByTagName("span");
@@ -40,26 +41,41 @@
 //				}
 //			}
 			////////封装函数///////
-			function fn(last){
-				for (var i = 0; i < spans.length; i++) {
-					spans[i].style.color = '';
-				}
-				for (var i = 0; i < last; i++) {
-					spans[i].style.color = last>2?'red':'blue';
-				}
-			}
-			for(var i=0;i<spans.length;i++){
-				spans[i].index = i;
-				spans[i].onmouseover = function(){
-					fn(this.index+1)
-				}
-				spans[i].onclick = function(){
-					lockNum = this.index;
-				}
-				spans[i].onmouseout = function(){
-					fn(lockNum+1);
-				}
-			}
+//			function fn(last){
+//				for (var i = 0; i < spans.length; i++) {
+//					spans[i].style.color = '';
+//				}
+//				for (var i = 0; i < last; i++) {
+//					spans[i].style.color = last>2?'red':'blue';
+//				}
+//			}
+//			for(var i=0;i<spans.length;i++){
+//				spans[i].index = i;
+//				spans[i].onmouseover = function(){
+//					fn(this.index+1)
+//				}
+//				spans[i].onclick = function(){
+//					lockNum = this.index;
+//				}
+//				spans[i].onmouseout = function(){
+//					fn(lockNum+1);
+//				}
+//			}
+   			///////////jquery写法////////
+   			var Num = '';
+   			$('span').on({
+   				'mouseover':function(){
+   					$(this).css('color','red').prevAll().css('color','red');
+   				},
+   				'mouseout':function(){
+   					$('span').css('color','');
+   					Num?$('span').eq(Num).css('color','red').prevAll().css('color','red'):Num;
+   				},
+   				'click':function(){
+   					Num = $(this).index();
+   				}
+   			})
+   			
 		</script>
 	</body>
 </html>
